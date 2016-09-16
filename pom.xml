@@ -1,0 +1,112 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.librairy</groupId>
+    <artifactId>librairy-distribution</artifactId>
+    <version>0.1</version>
+    <packaging>jar</packaging>
+    <name>librairy distribution</name>
+    <description>librairy package</description>
+    <url>https://github.com/librairy/distribution</url>
+    <organization>
+        <name>Ontology Engineering Group</name>
+        <url>http://www.oeg-upm.net</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+    <inceptionYear>2016</inceptionYear>
+    <scm>
+        <url>https://github.com/librairy/distribution</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>cbadenes</id>
+            <name>Carlos Badenes Olmedo</name>
+            <email>cbadenes at fi.upm.es</email>
+        </developer>
+    </developers>
+    <prerequisites>
+        <maven>3.0.0</maven>
+    </prerequisites>
+	<properties>
+        <docker.image.prefix>librairy</docker.image.prefix>
+
+        <!-- Project Details -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.java.version>1.8</project.java.version>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Maven Plugins -->
+        <maven.appassembler.plugin.version>1.9</maven.appassembler.plugin.version>
+        <maven.assembly.plugin.version>2.5.5</maven.assembly.plugin.version>
+        <maven.compiler.plugin.version>3.3</maven.compiler.plugin.version>
+        <maven.jar.plugin.version>2.6</maven.jar.plugin.version>
+        <maven.site.plugin.version>0.10</maven.site.plugin.version>
+        <maven.scala.version>2.15.2</maven.scala.version>
+        <maven.surefire.plugin.version>2.11</maven.surefire.plugin.version>
+        <maven.war.plugin.version>2.6</maven.war.plugin.version>
+        <maven.resources.plugin.version>2.7</maven.resources.plugin.version>
+
+
+        <boot.version>0.16</boot.version>
+        <computing.version>0.4</computing.version>
+        <harvester.version>0.5</harvester.version>
+        <harvester.research.version>0.5</harvester.research.version>
+        <modeler.w2v.version>0.5</modeler.w2v.version>
+        <modeler.lda.version>0.9</modeler.lda.version>
+        <explorer.version>0.7</explorer.version>
+    </properties>
+
+    <dependencies>
+
+        <!-- W2V-Modeler -->
+        <dependency>
+            <groupId>org.librairy</groupId>
+            <artifactId>librairy-modeler-w2v</artifactId>
+            <version>${modeler.w2v.version}</version>
+            <classifier>lib</classifier>
+        </dependency>
+
+        <!-- LDA-Modeler -->
+        <dependency>
+            <groupId>org.librairy</groupId>
+            <artifactId>librairy-modeler-lda</artifactId>
+            <version>${modeler.lda.version}</version>
+            <classifier>lib</classifier>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+
+        <plugins>
+
+            <!-- Uber-jar -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <finalName>librairy-dependencies</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
