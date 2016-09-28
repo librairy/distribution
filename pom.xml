@@ -4,7 +4,7 @@
 
 	<groupId>org.librairy</groupId>
     <artifactId>librairy-distribution</artifactId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>librairy distribution</name>
     <description>librairy package</description>
@@ -134,7 +134,11 @@
                         </goals>
                         <phase>deploy</phase>
                         <configuration>
+<<<<<<< HEAD
                             <message>Library Distribution ${project.version}</message>
+=======
+                            <message>Library of ${project.version}</message>
+>>>>>>> develop
                             <noJekyll>true</noJekyll>
                             <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
                             <branch>refs/heads/mvn-repo</branch>
@@ -214,4 +218,100 @@
         </plugins>
     </reporting>
 
+<<<<<<< HEAD
+=======
+    <repositories>
+
+        <!-- External Libraries -->
+        <repository>
+            <id>external-libs</id>
+            <url>https://raw.github.com/cbadenes/external-libs/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+
+        <!-- Test Utils Repository -->
+        <repository>
+            <id>test-utils</id>
+            <url>https://raw.github.com/cbadenes/test-utils/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+
+        <!-- Librairy Repository -->
+        <repository>
+            <id>librairy-boot-repo</id>
+            <url>https://raw.github.com/librairy/boot/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>librairy-computing-repo</id>
+            <url>https://raw.github.com/librairy/computing/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>librairy-metrics-repo</id>
+            <url>https://raw.github.com/librairy/metrics/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>librairy-harvester-repo</id>
+            <url>https://raw.github.com/librairy/harvester/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>librairy-lda-repo</id>
+            <url>https://raw.github.com/librairy/modeler-lda/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>librairy-w2v-repo</id>
+            <url>https://raw.github.com/librairy/modeler-w2v/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>librairy-explorer-repo</id>
+            <url>https://raw.github.com/librairy/explorer/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+
+
+        <!-- Spring Milestone -->
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/libs-milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+    </repositories>
+
+>>>>>>> develop
 </project>
