@@ -10,7 +10,7 @@ services:
    container_name: document-db
    image: librairy/document-db:1.0
    restart: always
-   ports: ["9300:9300"]
+   ports: ["9200:9200","9300:9300"]
    networks: ["lnet"]
  graph-db:
    container_name: graph-db
