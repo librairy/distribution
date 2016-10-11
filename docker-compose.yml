@@ -3,33 +3,39 @@ services:
  column-db:
    container_name: column-db
    image: librairy/column-db:1.3
+   restart: always
    ports: ["9042:9042"]
    networks: ["lnet"]
  document-db:
    container_name: document-db
    image: librairy/document-db:1.0
+   restart: always
    ports: ["9300:9300"]
    networks: ["lnet"]
  graph-db:
    container_name: graph-db
    image: librairy/graph-db:1.2
+   restart: always
    ports: ["7474:7474"]
    networks: ["lnet"]
  event-bus:
    container_name: event-bus
    image: librairy/event-bus:1.0
+   restart: always
    ports: ["5672:5672","15672:15672"]
    networks: ["lnet"]
  harvester:
   container_name: harvester
   image: librairy/harvester:0.12
+  restart: always
   env_file: ./librairy.env
   volumes: [ "./files:/librairy/files"]
   entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
   networks: ["lnet"]
 # paper-parser:
 #  container_name: paper-parser
-#  image: librairy/paper-parser:0.12
+#  image: librairy/paper-parser:0.13
+#  restart: always
 #  env_file: ./librairy.env
 #  volumes: [ "./data:/librairy/files"]
 #  entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
@@ -37,6 +43,7 @@ services:
  modeler-w2v:
   container_name: modeler-w2v
   image: librairy/modeler-w2v:0.12
+  restart: always
   env_file: ./librairy.env
   volumes: ["./models:/librairy/domains"]
   entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
@@ -44,6 +51,7 @@ services:
  modeler-lda:
   container_name: modeler-lda
   image: librairy/modeler-lda:0.16
+  restart: always
   env_file: ./librairy.env
   volumes: ["./models:/librairy/domains"]
   entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
@@ -51,6 +59,7 @@ services:
  explorer:
   container_name: explorer
   image: librairy/explorer:0.15
+  restart: always
   env_file: ./librairy.env
   volumes: ["./models:/librairy/domains"]
   entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
