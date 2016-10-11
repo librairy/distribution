@@ -58,7 +58,7 @@ services:
   networks: ["lnet"]
  explorer:
   container_name: explorer
-  image: librairy/explorer:0.15
+  image: librairy/explorer:0.16
   restart: always
   env_file: ./librairy.env
   volumes: ["./models:/librairy/domains"]
