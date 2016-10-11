@@ -26,7 +26,7 @@ services:
    networks: ["lnet"]
  harvester:
   container_name: harvester
-  image: librairy/harvester:0.12
+  image: librairy/harvester:0.13
   restart: always
   env_file: ./librairy.env
   volumes: [ "./files:/librairy/files"]
@@ -34,7 +34,7 @@ services:
   networks: ["lnet"]
 # paper-parser:
 #  container_name: paper-parser
-#  image: librairy/paper-parser:0.13
+#  image: librairy/paper-parser:0.14
 #  restart: always
 #  env_file: ./librairy.env
 #  volumes: [ "./data:/librairy/files"]
@@ -42,7 +42,7 @@ services:
 #  networks: ["lnet"]
  modeler-w2v:
   container_name: modeler-w2v
-  image: librairy/modeler-w2v:0.12
+  image: librairy/modeler-w2v:0.14
   restart: always
   env_file: ./librairy.env
   volumes: ["./models:/librairy/domains"]
@@ -50,7 +50,7 @@ services:
   networks: ["lnet"]
  modeler-lda:
   container_name: modeler-lda
-  image: librairy/modeler-lda:0.16
+  image: librairy/modeler-lda:0.17
   restart: always
   env_file: ./librairy.env
   volumes: ["./models:/librairy/domains"]
