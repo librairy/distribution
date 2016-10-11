@@ -32,14 +32,6 @@ services:
   volumes: [ "./files:/librairy/files"]
   entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
   networks: ["lnet"]
-# paper-parser:
-#  container_name: paper-parser
-#  image: librairy/paper-parser:0.14
-#  restart: always
-#  env_file: ./librairy.env
-#  volumes: [ "./data:/librairy/files"]
-#  entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
-#  networks: ["lnet"]
  modeler-w2v:
   container_name: modeler-w2v
   image: librairy/modeler-w2v:0.16
