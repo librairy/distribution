@@ -58,15 +58,19 @@
         <maven.surefire.plugin.version>2.11</maven.surefire.plugin.version>
         <maven.war.plugin.version>2.6</maven.war.plugin.version>
         <maven.resources.plugin.version>2.7</maven.resources.plugin.version>
+        <maven.surefire.junit.version>2.12</maven.surefire.junit.version>
 
 
         <boot.version>0.21</boot.version>
         <computing.version>0.10</computing.version>
+        <explorer.version>0.12</explorer.version>
         <harvester.version>0.11</harvester.version>
         <harvester.research.version>0.11</harvester.research.version>
+        <junit.version>4.12</junit.version>
         <modeler.w2v.version>0.11</modeler.w2v.version>
         <modeler.lda.version>0.15</modeler.lda.version>
-        <explorer.version>0.12</explorer.version>
+        <spring.test.version>4.2.7.RELEASE</spring.test.version>
+        <testutils.version>1.0.0</testutils.version>
     </properties>
 
     <dependencies>
@@ -87,11 +91,57 @@
             <classifier>lib</classifier>
         </dependency>
 
+        <!-- Unit tests Libraries -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>es.cbadenes.lab</groupId>
+            <artifactId>test-utils</artifactId>
+            <version>${testutils.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.test.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
 
         <plugins>
+            <!-- Maven Test Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit47</artifactId>
+                        <version>${maven.surefire.junit.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <source>${project.java.version}</source>
+                    <target>${project.java.version}</target>
+                    <compilerVersion>${project.java.version}</compilerVersion>
+                </configuration>
+            </plugin>
 
             <!-- Uber-jar -->
             <plugin>
