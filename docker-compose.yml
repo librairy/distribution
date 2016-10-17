@@ -34,7 +34,7 @@ services:
   networks: ["lnet"]
  modeler-w2v:
   container_name: modeler-w2v
-  image: librairy/modeler-w2v:0.17
+  image: librairy/modeler-w2v:0.19
   restart: always
   env_file: ./librairy.env
   volumes: ["./models:/librairy/domains"]
@@ -42,7 +42,7 @@ services:
   networks: ["lnet"]
  modeler-lda:
   container_name: modeler-lda
-  image: librairy/modeler-lda:0.20
+  image: librairy/modeler-lda:0.22
   restart: always
   env_file: ./librairy.env
   volumes: ["./models:/librairy/domains"]
@@ -50,7 +50,7 @@ services:
   networks: ["lnet"]
  explorer:
   container_name: explorer
-  image: librairy/explorer:0.17
+  image: librairy/explorer:0.18
   restart: always
   env_file: ./librairy.env
   volumes: ["./models:/librairy/domains"]
