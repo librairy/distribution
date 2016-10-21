@@ -26,10 +26,10 @@ services:
    networks: ["lnet"]
  harvester:
   container_name: harvester
-  image: librairy/harvester:0.17
+  image: librairy/harvester:0.18
   restart: always
   env_file: ./librairy.env
-  volumes: [ "./files:/librairy/files"]
+  volumes: [ "./files:/librairy/files","./inbox:/librairy/inbox"]
   entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
   networks: ["lnet"]
  modeler-w2v:
@@ -42,7 +42,7 @@ services:
   networks: ["lnet"]
  modeler-lda:
   container_name: modeler-lda
-  image: librairy/modeler-lda:0.24
+  image: librairy/modeler-lda:0.26
   restart: always
   env_file: ./librairy.env
   volumes: ["./models:/librairy/domains"]
