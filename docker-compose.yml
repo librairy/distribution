@@ -26,7 +26,7 @@ services:
    networks: ["lnet"]
  tokenizer:
    container_name: tokenizer
-   image: librairy/annotator-tokenizer:0.2
+   image: librairy/annotator-tokenizer:0.3
    restart: always
    entrypoint: ["/waitFor.sh", "zavijava.dia.fi.upm.es:9160","-t","0","--","java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
    networks: ["lnet"]
