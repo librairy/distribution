@@ -32,7 +32,7 @@ services:
    networks: ["lnet"]
  harvester:
    container_name: harvester
-   image: librairy/harvester:0.19
+   image: librairy/harvester:0.20
    restart: always
    env_file: ./librairy.env
    volumes: [ "./files:/librairy/files","./inbox:/librairy/inbox"]
