@@ -26,9 +26,9 @@ services:
    networks: ["lnet"]
  tokenizer:
    container_name: tokenizer
-   image: librairy/annotator-tokenizer:0.1
+   image: librairy/annotator-tokenizer:0.2
    restart: always
-   entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
+   entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
    networks: ["lnet"]
  harvester:
    container_name: harvester
