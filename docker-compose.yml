@@ -24,38 +24,44 @@ services:
    restart: always
    ports: ["5672:5672","15672:15672"]
    networks: ["lnet"]
+ tokenizer:
+   container_name: tokenizer
+   image: librairy/annotator-tokenizer:0.1
+   restart: always
+   entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
+   networks: ["lnet"]
  harvester:
-  container_name: harvester
-  image: librairy/harvester:0.18
-  restart: always
-  env_file: ./librairy.env
-  volumes: [ "./files:/librairy/files","./inbox:/librairy/inbox"]
-  entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
-  networks: ["lnet"]
+   container_name: harvester
+   image: librairy/harvester:0.19
+   restart: always
+   env_file: ./librairy.env
+   volumes: [ "./files:/librairy/files","./inbox:/librairy/inbox"]
+   entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
+   networks: ["lnet"]
  modeler-w2v:
-  container_name: modeler-w2v
-  image: librairy/modeler-w2v:0.19
-  restart: always
-  env_file: ./librairy.env
-  volumes: ["./models:/librairy/domains"]
-  entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
-  networks: ["lnet"]
+   container_name: modeler-w2v
+   image: librairy/modeler-w2v:0.19
+   restart: always
+   env_file: ./librairy.env
+   volumes: ["./models:/librairy/domains"]
+   entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
+   networks: ["lnet"]
  modeler-lda:
-  container_name: modeler-lda
-  image: librairy/modeler-lda:0.26
-  restart: always
-  env_file: ./librairy.env
-  volumes: ["./models:/librairy/domains"]
-  entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
-  networks: ["lnet"]
+   container_name: modeler-lda
+   image: librairy/modeler-lda:0.27
+   restart: always
+   env_file: ./librairy.env
+   volumes: ["./models:/librairy/domains"]
+   entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
+   networks: ["lnet"]
  explorer:
-  container_name: explorer
-  image: librairy/explorer:0.20
-  restart: always
-  env_file: ./librairy.env
-  volumes: ["./models:/librairy/domains"]
-  entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
-  ports: ["80:8080"]
-  networks: ["lnet"]
+   container_name: explorer
+   image: librairy/explorer:0.20
+   restart: always
+   env_file: ./librairy.env
+   volumes: ["./models:/librairy/domains"]
+   entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
+   ports: ["80:8080"]
+   networks: ["lnet"]
 networks:
   lnet:
