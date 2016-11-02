@@ -24,13 +24,13 @@ services:
    restart: always
    ports: ["5672:5672","15672:15672"]
    networks: ["lnet"]
-  tokenizer:
+ tokenizer:
     container_name: tokenizer
     image: librairy/annotator-tokenizer:0.3
     restart: always
     entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
     networks: ["lnet"]
-  harvester:
+ harvester:
     container_name: harvester
     image: librairy/harvester:0.20
     restart: always
@@ -38,7 +38,7 @@ services:
     volumes: [ "./files:/librairy/files","./inbox:/librairy/inbox"]
     entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
     networks: ["lnet"]
-  modeler-w2v:
+ modeler-w2v:
     container_name: modeler-w2v
     image: librairy/modeler-w2v:0.19
     restart: always
@@ -46,7 +46,7 @@ services:
     volumes: ["./models:/librairy/domains"]
     entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
     networks: ["lnet"]
-  modeler-lda:
+ modeler-lda:
     container_name: modeler-lda
     image: librairy/modeler-lda:0.27
     restart: always
@@ -54,7 +54,7 @@ services:
     volumes: ["./models:/librairy/domains"]
     entrypoint: ["/waitFor.sh", "column-db:9160","-t","0","--","catalina.sh","run"]
     networks: ["lnet"]
-  explorer:
+ explorer:
     container_name: explorer
     image: librairy/explorer:0.21
     restart: always
