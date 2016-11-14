@@ -1,0 +1,20 @@
+version: "2"
+services:
+ harvester-bluebottle:
+  container_name: harvester-bluebottle
+  image: jluisred/harvester-bluebottle
+  env_file: ../librairy.env
+  mem_limit: 6g
+  memswap_limit: 8g
+  cpuset: "11"
+  external_links:
+   - column-db
+   - document-db
+   - graph-db
+   - event-bus
+  networks:
+   - "lnet"
+networks:
+  lnet:
+   external:
+    name: storage_lnet
