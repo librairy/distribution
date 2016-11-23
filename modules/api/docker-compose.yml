@@ -1,15 +1,15 @@
 version: "2"
 services:
  modeler-lda:
-  container_name: modeler-lda
-  image: librairy/modeler-lda:1.0
+  container_name: api
+  image: librairy/api:1.0
   restart: always
   env_file: ../librairy.env
-  volumes: ["./models:/librairy/domains"]
-  mem_limit: 32g
-  memswap_limit: 34g
-  cpuset: 8-11
-  ports: ["4040:4040"]
+  volumes: ["../models:/librairy/domains"]
+#  mem_limit: 32g
+#  memswap_limit: 34g
+#  cpuset: 8-11
+  ports: ["8080:8080","4042:4040"]
   external_links:
    - column-db
    - document-db
@@ -21,3 +21,4 @@ networks:
   lnet:
    external:
     name: storage_lnet
+
