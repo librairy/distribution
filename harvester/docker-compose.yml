@@ -1,0 +1,20 @@
+version: "2"
+services:
+ harvester:
+   container_name: harvester
+   image: librairy/harvester:1.0
+   restart: always
+   volumes:
+     - ./documents:/librairy/inbox
+   external_links:
+     - column-db
+     - document-db
+     - graph-db
+     - event-bus
+   networks:
+       - "lnet"
+networks:
+  lnet:
+    external:
+      name: storage_lnet
+

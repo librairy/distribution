@@ -1,0 +1,18 @@
+version: "2"
+services:
+ harvester:
+   container_name: tokenizer
+   image: librairy/annotator-tokenizer:1.0
+   restart: always
+   external_links:
+     - column-db
+     - document-db
+     - graph-db
+     - event-bus
+   networks:
+       - "lnet"
+networks:
+  lnet:
+    external:
+      name: storage_lnet
+
