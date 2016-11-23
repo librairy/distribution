@@ -5,7 +5,7 @@ services:
   image: librairy/modeler-lda:1.0
   restart: always
   env_file: ../librairy.env
-  volumes: ["./models:/librairy/domains"]
+  volumes: ["../models:/librairy/domains"]
   mem_limit: 32g
   memswap_limit: 34g
   cpuset: 8-11
