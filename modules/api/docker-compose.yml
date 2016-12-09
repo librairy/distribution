@@ -1,24 +1,22 @@
-
 version: "2"
 services:
- explorer-bluebottle:
-  container_name: explorer-bluebottle
-  image: jluisred/explorer-bluebottle
+ modeler-lda:
+  container_name: api
+  image: librairy/api:1.1
+  restart: always
   #env_file: /opt/librairy/conf/librairy.env
   env_file: ../librairy.env
-  mem_limit: 6g
-  memswap_limit: 8g
-#  cpuset: "11"
-  expose:
-     - "8888"
-  ports:
-     - "0.0.0.0:8888:8888"
-  network_mode: host
+  volumes: ["../models:/librairy/domains"]
+#  mem_limit: 32g
+#  memswap_limit: 34g
+#  cpuset: 8-11
+  ports: ["80:8080","4042:4040"]
 #  external_links:
 #   - column-db
 #   - document-db
 #   - graph-db
 #   - event-bus
+  network_mode: host
 #  networks:
 #   - "lnet"
 #networks:

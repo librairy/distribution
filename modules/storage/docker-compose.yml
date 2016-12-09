@@ -2,54 +2,62 @@ version: "2"
 services:
  column-db:
    container_name: column-db
-   image: librairy/column-db:1.3
+   image: librairy/column-db:1.5
    restart: always
-   volumes: ["./columndb:/var/lib/cassandra"]
+   volumes: ["/opt/librairy/storage/columndb:/var/lib/cassandra"]
    ports: ["9160:9160","9042:9042"]
-#   environment: ["CASSANDRA_LISTEN_ADDRESS=127.0.0.1","CASSANDRA_RPC_ADDRESS=127.0.0.1"]
-   mem_limit: 2g
-   memswap_limit: 3g
-   cpuset: 0-4
-   networks: ["lnet"]
+   environment: ["MAX_HEAP_SIZE=16G","HEAP_NEWSIZE=3200M"]
+#   mem_limit: 4g
+#   memswap_limit: 6g
+#   cpuset: 0-4
+   ulimits:
+    nofile:
+     soft: 100000
+     hard: 100000
+   network_mode: host
+#   networks: ["lnet"]
  document-db:
    container_name: document-db
    image: librairy/document-db:1.0
    restart: always
-   volumes: ["./documentdb:/usr/share/elasticsearch/data"]
+   volumes: ["/opt/librairy/storage/documentdb:/usr/share/elasticsearch/data"]
    ports: ["9200:9200","9300:9300"]
-   environment: ["ES_JAVA_OPTS=-Xms2g -Xmx2g"]
-   mem_limit: 2g
-   memswap_limit: 3g
-   cpuset: 0-4
+   environment: ["ES_JAVA_OPTS=-Xms6g -Xmx6g"]
+   mem_limit: 8g
+   memswap_limit: 10g
+#   cpuset: 0-4
    ulimits:
     nofile:
      soft: 65536
      hard: 65536
-   networks: ["lnet"]
+   network_mode: host
+#   networks: ["lnet"]
  graph-db:
    container_name: graph-db
    image: librairy/graph-db:1.2
    restart: always
-   volumes: ["./graphdb:/data"]
+   volumes: ["/opt/librairy/storage/graphdb:/data"]
    ports: ["7474:7474"]
    mem_limit: 2g
    memswap_limit: 3g
-   cpuset: 0-4
+   cpuset: 0-2
    environment: ["NEO4J_HEAP_MEMORY=1024","NEO4J_CACHE_MEMORY=1G"]
    ulimits:
     nofile:
      soft: 65536
      hard: 65536
-   networks: ["lnet"]
+   network_mode: host
+#   networks: ["lnet"]
  event-bus:
    container_name: event-bus
    image: librairy/event-bus:1.0
    restart: always
    ports: ["5672:5672","15672:15672"]
    environment: ["RABBITMQ_HIPE_COMPILE=1"]
-   mem_limit: 1g
-   memswap_limit: 2g
-   cpuset: 0-4
-   networks: ["lnet"]
-networks:
-  lnet:
+   mem_limit: 2g
+   memswap_limit: 4g
+   network_mode: host
+#   cpuset: 0-4
+#   networks: ["lnet"]
+#networks:
+#  lnet:
