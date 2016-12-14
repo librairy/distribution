@@ -46,6 +46,7 @@ services:
    image: librairy/event-bus:1.0
    restart: always
    ports: ["5672:5672","15672:15672"]
+   environment: ["RABBITMQ_HIPE_COMPILE=1"]
    mem_limit: 2g
    memswap_limit: 4g
    cpuset: 6,7
