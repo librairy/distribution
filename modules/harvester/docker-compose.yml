@@ -2,10 +2,12 @@ version: "2"
 services:
  harvester:
    container_name: harvester
-   image: librairy/harvester:1.0
+   image: librairy/harvester:1.1
+   env_file: ../librairy.env
    restart: always
    volumes:
      - ./documents:/librairy/inbox
+  # network_mode: host
    external_links:
      - column-db
      - document-db
@@ -17,4 +19,3 @@ networks:
   lnet:
     external:
       name: storage_lnet
-

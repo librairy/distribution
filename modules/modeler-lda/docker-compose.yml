@@ -2,7 +2,7 @@ version: "2"
 services:
  modeler-lda:
   container_name: modeler-lda
-  image: librairy/modeler-lda:1.0
+  image: librairy/modeler-lda:1.2
   restart: always
   env_file: ../librairy.env
   volumes: ["../models:/librairy/domains"]
@@ -10,6 +10,7 @@ services:
 #  memswap_limit: 34g
 #  cpuset: 8-11
   ports: ["4040:4040"]
+#  network_mode: host
   external_links:
    - column-db
    - document-db

@@ -2,14 +2,17 @@ version: "2"
 services:
  modeler-lda:
   container_name: api
-  image: librairy/api:1.0
+  image: librairy/api:1.2
   restart: always
   env_file: ../librairy.env
+  environment:
+   - JAVA_OPTS=-Xmx3g -Xms3g
   volumes: ["../models:/librairy/domains"]
 #  mem_limit: 32g
 #  memswap_limit: 34g
 #  cpuset: 8-11
-  ports: ["8080:8080","4042:4040"]
+  ports: ["80:8080","4042:4040"]
+#  network_mode: host
   external_links:
    - column-db
    - document-db
@@ -17,7 +20,9 @@ services:
    - event-bus
   networks:
    - "lnet"
+   - "rest"
 networks:
+  rest:
   lnet:
    external:
     name: storage_lnet

@@ -1,15 +1,17 @@
+
 version: "2"
 services:
- modeler-lda:
-  container_name: modeler-w2v
-  image: librairy/modeler-w2v:1.1
-  restart: always
+ explorer-bluebottle:
+  container_name: explorer-bluebottle
+  image: jluisred/explorer-bluebottle
   env_file: ../librairy.env
-  volumes: ["../models:/librairy/domains"]
-#  mem_limit: 32g
-#  memswap_limit: 34g
-#  cpuset: 8-11
-  ports: ["4041:4040"]
+#  mem_limit: 6g
+#  memswap_limit: 8g
+#  cpuset: "11"
+  expose:
+     - "8888"
+  ports:
+     - "0.0.0.0:8888:8888"
 #  network_mode: host
   external_links:
    - column-db
@@ -22,3 +24,4 @@ networks:
   lnet:
    external:
     name: storage_lnet
+
