@@ -2,7 +2,7 @@ version: "2"
 services:
  column-db:
    container_name: column-db
-   image: librairy/column-db:1.5
+   image: librairy/column-db:1.6
    restart: always
    volumes: ["./columndb:/var/lib/cassandra"]
    ports: ["9160:9160","9042:9042"]
