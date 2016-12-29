@@ -2,7 +2,7 @@ version: "2"
 services:
  harvester:
    container_name: tokenizer
-   image: librairy/annotator-tokenizer:1.1
+   image: librairy/annotator-tokenizer:1.2
    restart: always
    env_file: ../librairy.env
 #  mem_limit: 12g
