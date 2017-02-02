@@ -11,7 +11,7 @@
 
 	<groupId>org.librairy</groupId>
     <artifactId>librairy-distribution</artifactId>
-    <version>1.2</version>
+    <version>1.3</version>
     <packaging>jar</packaging>
     <name>librairy distribution</name>
     <description>librairy package</description>
@@ -61,8 +61,8 @@
         <maven.surefire.junit.version>2.12</maven.surefire.junit.version>
 
 
-        <modeler.w2v.version>1.2</modeler.w2v.version>
-        <modeler.lda.version>1.3</modeler.lda.version>
+        <modeler.w2v.version>1.3</modeler.w2v.version>
+        <modeler.lda.version>1.4</modeler.lda.version>
 
         <spring.test.version>4.2.7.RELEASE</spring.test.version>
         <testutils.version>1.0.0</testutils.version>
