@@ -2,23 +2,29 @@ version: "2"
 services:
  modeler-lda:
   container_name: modeler-lda
-  image: librairy/modeler-lda:1.2
+  image: librairy/modeler-lda:1.4
   restart: always
   env_file: ../librairy.env
+  environment:
+     - JAVA_OPTS=-Xmx32g -Xms32g
   volumes: ["../models:/librairy/domains"]
 #  mem_limit: 32g
 #  memswap_limit: 34g
 #  cpuset: 8-11
+  ulimits:
+    nofile:
+     soft: 100000
+     hard: 100000
   ports: ["4040:4040"]
-#  network_mode: host
-  external_links:
-   - column-db
-   - document-db
-   - graph-db
-   - event-bus
-  networks:
-   - "lnet"
-networks:
-  lnet:
-   external:
-    name: storage_lnet
+  network_mode: host
+#  external_links:
+#   - column-db
+#   - document-db
+#   - graph-db
+#   - event-bus
+#  networks:
+#   - "lnet"
+#networks:
+#  lnet:
+#   external:
+#    name: storage_lnet

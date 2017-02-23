@@ -1,22 +1,22 @@
 version: "2"
 services:
- harvester:
+ tokenizer:
    container_name: tokenizer
-   image: librairy/annotator-tokenizer:1.2
+   image: librairy/annotator-tokenizer:1.4
    restart: always
    env_file: ../librairy.env
 #  mem_limit: 12g
 #  memswap_limit: 14g
 #  cpuset: 8-11
-#  network_mode: host
-   external_links:
-     - column-db
-     - document-db
-     - graph-db
-     - event-bus
-   networks:
-       - "lnet"
-networks:
-  lnet:
-    external:
-      name: storage_lnet
+  network_mode: host
+#   external_links:
+#     - column-db
+#     - document-db
+#     - graph-db
+#     - event-bus
+#   networks:
+#       - "lnet"
+#networks:
+#  lnet:
+#    external:
+#      name: storage_lnet
