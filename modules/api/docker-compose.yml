@@ -1,8 +1,8 @@
 version: "2"
 services:
- modeler-lda:
+ api:
   container_name: api
-  image: librairy/api:1.6
+  image: librairy/api:1.6.1
   restart: always
   env_file: ../librairy.env
   environment:

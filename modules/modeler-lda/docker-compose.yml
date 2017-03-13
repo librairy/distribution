@@ -2,7 +2,7 @@ version: "2"
 services:
  modeler-lda:
   container_name: modeler-lda
-  image: librairy/modeler-lda:1.4
+  image: librairy/modeler-lda:1.4.1
   restart: always
   env_file: ../librairy.env
   environment:
