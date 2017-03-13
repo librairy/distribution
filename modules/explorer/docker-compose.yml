@@ -1,0 +1,26 @@
+version: "2"
+services:
+ explorer-bluebottle:
+  container_name: explorer-bluebottle
+  image: jluisred/explorer-bluebottle:latest
+  #env_file: /opt/librairy/conf/librairy.env
+  env_file: ../librairy.env
+  mem_limit: 3g
+#  memswap_limit: 8g
+  cpuset: 12-17
+#  expose:
+#     - "8888"
+  ports: ["9998:8888"]
+#  network_mode: host
+  external_links:
+   - column-db
+   - document-db
+   - graph-db
+   - event-bus
+   - librairy-api
+  networks:
+   - "lnet"
+networks:
+  lnet:
+   external:
+    name: storage_lnet
