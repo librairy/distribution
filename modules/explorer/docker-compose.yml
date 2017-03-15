@@ -5,9 +5,11 @@ services:
   image: jluisred/explorer-bluebottle:latest
   #env_file: /opt/librairy/conf/librairy.env
   env_file: ../librairy.env
-  mem_limit: 3g
+  environment:
+   - JAVA_OPTS=-Xmx3g -Xms512m
+  mem_limit: 3584m
 #  memswap_limit: 8g
-  cpuset: 12-17
+  cpuset: 12-19
 #  expose:
 #     - "8888"
   ports: ["9998:8888"]

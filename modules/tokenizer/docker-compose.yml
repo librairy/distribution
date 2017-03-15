@@ -6,10 +6,10 @@ services:
   restart: always
   env_file: ../librairy.env
   environment:
-   - JAVA_OPTS=-Xmx64g -Xms64g
-  mem_limit: 65g
+   - JAVA_OPTS=-Xmx26g -Xms512m
+  mem_limit: 27136m
 #  memswap_limit: 14g
-  cpuset: 0-12
+  cpuset: 6-19
 #  network_mode: host
   external_links:
    - column-db

@@ -6,8 +6,8 @@ services:
    restart: always
    volumes: ["/opt/librairy/storage/columndb:/var/lib/cassandra"]
    ports: ["9160:9160","9042:9042"]
-   environment: ["MAX_HEAP_SIZE=12G","HEAP_NEWSIZE=3200M"]
-   mem_limit: 12g
+   environment: ["MAX_HEAP_SIZE=18G","HEAP_NEWSIZE=3200M"]
+   mem_limit: 18944m
 #   memswap_limit: 6g
    cpuset: 0-3
    ulimits:
@@ -22,10 +22,10 @@ services:
    restart: always
    volumes: ["/opt/librairy/storage/documentdb:/usr/share/elasticsearch/data"]
    ports: ["9200:9200","9300:9300"]
-   environment: ["ES_JAVA_OPTS=-Xms1g -Xmx1g"]
-   mem_limit: 1g
+   environment: ["ES_JAVA_OPTS=-Xms512m -Xmx1g"]
+   mem_limit: 1536m
 #   memswap_limit: 10g
-#   cpuset: 0-5
+   cpuset: 0-3
    ulimits:
     nofile:
      soft: 65536
@@ -38,26 +38,26 @@ services:
    restart: always
    volumes: ["/opt/librairy/storage/graphdb:/data"]
    ports: ["7474:7474"]
-   mem_limit: 1g
+   mem_limit: 1024m
 #   memswap_limit: 3g
-#   cpuset: 0-2
-   environment: ["NEO4J_HEAP_MEMORY=512","NEO4J_CACHE_MEMORY=512M"]
+   cpuset: 0-1
+   environment: ["NEO4J_HEAP_MEMORY=512M","NEO4J_CACHE_MEMORY=512M"]
    ulimits:
-    nofile:
-     soft: 65536
-     hard: 65536
-#   network_mode: host
-   networks: ["lnet"]
- event-bus:
-   container_name: event-bus
-   image: librairy/event-bus:1.0
-   restart: always
-   ports: ["5672:5672","15672:15672"]
-   environment: ["RABBITMQ_HIPE_COMPILE=1"]
-   mem_limit: 1g
-#   memswap_limit: 4g
-#   network_mode: host
-#   cpuset: 0-4
-   networks: ["lnet"]
-networks:
-  lnet:
+     nofile:
+      soft: 65536
+      hard: 65536
+ #   network_mode: host
+    networks: ["lnet"]
+  event-bus:
+    container_name: event-bus
+    image: librairy/event-bus:1.0
+    restart: always
+    ports: ["5672:5672","15672:15672"]
+    environment: ["RABBITMQ_HIPE_COMPILE=1"]
+    mem_limit: 1536m
+ #   memswap_limit: 4g
+ #   network_mode: host
+    cpuset: 0-3
+    networks: ["lnet"]
+ networks:
+   lnet:

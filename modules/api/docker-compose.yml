@@ -4,13 +4,14 @@ services:
   container_name: librairy-api
   image: librairy/api:1.6.1
   restart: always
+  #env_file: /opt/librairy/conf/librairy.env
   env_file: ../librairy.env
   environment:
-   - JAVA_OPTS=-Xmx12g -Xms12g
+   - JAVA_OPTS=-Xmx18g -Xms512m
   volumes: ["../models:/librairy/domains"]
-  mem_limit: 14g
+  mem_limit: 18944m
 #  memswap_limit: 8g
-  cpuset: 4-12
+  cpuset: 4-19
   ulimits:
     nofile:
      soft: 100000

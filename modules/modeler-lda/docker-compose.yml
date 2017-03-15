@@ -6,9 +6,9 @@ services:
   restart: always
   env_file: ../librairy.env
   environment:
-   - JAVA_OPTS=-Xmx58g -Xms58g
+   - JAVA_OPTS=-Xmx64g -Xms512m
   volumes: ["../models:/librairy/domains"]
-  mem_limit: 58g
+  mem_limit: 66048m
 #  memswap_limit: 18g
   cpuset: 4-19
   ulimits:
