@@ -2,7 +2,7 @@ version: "2"
 services:
  explorer-bluebottle:
   container_name: explorer-bluebottle
-  image: jluisred/explorer-bluebottle:latest
+  image: librairy/explorer-bluebottle:0.1
   #env_file: /opt/librairy/conf/librairy.env
   env_file: ../librairy.env
   environment:

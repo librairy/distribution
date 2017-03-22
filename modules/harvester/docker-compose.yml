@@ -2,7 +2,7 @@ version: "2"
 services:
  harvester-bluebottle:
   container_name: harvester-bluebottle
-  image: jluisred/harvester-bluebottle
+  image: librairy/harvester-bluebottle:0.1
   env_file: ../librairy.env
   mem_limit: 3g
   #memswap_limit: 8g
