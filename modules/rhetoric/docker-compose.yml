@@ -11,7 +11,7 @@ services:
 #    - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
    mem_limit: 8320m
    memswap_limit: 8320m
-   cpuset: 14-16
+   cpuset: 15-17
    external_links:
     - librairy-db
     - librairy-bus
@@ -28,7 +28,7 @@ services:
    #  - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
     mem_limit: 8320m
     memswap_limit: 8320m
-    cpuset: 16-18
+    cpuset: 18-20
     external_links:
      - librairy-db
      - librairy-bus
@@ -45,7 +45,7 @@ services:
    #  - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
     mem_limit: 8320m
     memswap_limit: 8320m
-    cpuset: 18-20
+    cpuset: 21-22
     external_links:
      - librairy-db
      - librairy-bus
@@ -62,7 +62,7 @@ services:
   #   - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
     mem_limit: 8320m
     memswap_limit: 8320m
-    cpuset: 20-22
+    cpuset: 23-25
     external_links:
      - librairy-db
      - librairy-bus
@@ -79,7 +79,7 @@ services:
  #    - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
     mem_limit: 8320m
     memswap_limit: 8320m
-    cpuset: 22-24
+    cpuset: 26-28
     external_links:
      - librairy-db
      - librairy-bus
