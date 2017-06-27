@@ -7,11 +7,16 @@ services:
    environment:
     - LIBRAIRY_URI=minetur.dia.fi.upm.es:9999/api
     - JAVA_OPTS=-Xmx8g -Xms512m
-    - LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
-    - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
+#    - LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
+#    - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
    mem_limit: 8320m
    memswap_limit: 8320m
    cpuset: 14-16
+   external_links:
+    - librairy-db
+    - librairy-bus
+   networks:
+    - lnet
  librairy-rhetoric2:
     container_name: librairy-rhetoric2
     image: librairy/annotator-rhetoric:1.8.0
@@ -19,11 +24,16 @@ services:
     environment:
      - LIBRAIRY_URI=minetur.dia.fi.upm.es:9999/api
      - JAVA_OPTS=-Xmx8g -Xms512m
-     - LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
-     - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
+   #  - LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
+   #  - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
     mem_limit: 8320m
     memswap_limit: 8320m
     cpuset: 16-18
+    external_links:
+     - librairy-db
+     - librairy-bus
+    networks:
+     - lnet
  librairy-rhetoric3:
     container_name: librairy-rhetoric3
     image: librairy/annotator-rhetoric:1.8.0
@@ -31,11 +41,16 @@ services:
     environment:
      - LIBRAIRY_URI=minetur.dia.fi.upm.es:9999/api
      - JAVA_OPTS=-Xmx8g -Xms512m
-     - LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
-     - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
+   #  - LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
+   #  - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
     mem_limit: 8320m
     memswap_limit: 8320m
     cpuset: 18-20
+    external_links:
+     - librairy-db
+     - librairy-bus
+    networks:
+     - lnet
  librairy-rhetoric4:
     container_name: librairy-rhetoric1
     image: librairy/annotator-rhetoric:1.8.0
@@ -43,11 +58,16 @@ services:
     environment:
      - LIBRAIRY_URI=minetur.dia.fi.upm.es:9999/api
      - JAVA_OPTS=-Xmx8g -Xms512m
-     - LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
-     - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
+  #   - LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
+  #   - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
     mem_limit: 8320m
     memswap_limit: 8320m
     cpuset: 20-22
+    external_links:
+     - librairy-db
+     - librairy-bus
+    networks:
+     - lnet
  librairy-rhetoric5:
     container_name: librairy-rhetoric1
     image: librairy/annotator-rhetoric:1.8.0
@@ -55,8 +75,17 @@ services:
     environment:
      - LIBRAIRY_URI=minetur.dia.fi.upm.es:9999/api
      - JAVA_OPTS=-Xmx8g -Xms512m
-     - LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
-     - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
+ #    - LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
+ #    - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
     mem_limit: 8320m
     memswap_limit: 8320m
     cpuset: 22-24
+    external_links:
+     - librairy-db
+     - librairy-bus
+    networks:
+     - lnet
+networks:
+ lnet:
+  external:
+   name: core_lnet

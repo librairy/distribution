@@ -7,8 +7,17 @@ services:
    environment:
     - LIBRAIRY_URI=minetur.dia.fi.upm.es:9999/api
     - JAVA_OPTS=-Xmx30g -Xms512m
-    - LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
-    - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
+ #   - LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
+ #   - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
    mem_limit: 30848m
    memswap_limit: 30848m
    cpuset: 4-14
+   external_links:
+    - librairy-db
+    - librairy-bus
+   networks:
+    - lnet
+networks:
+ lnet:
+  external:
+   name: core_lnet

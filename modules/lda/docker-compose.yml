@@ -9,8 +9,8 @@ services:
     - JAVA_OPTS=-Xmx20g -Xms512m
     - LIBRAIRY_COMPUTING_CACHE=MEMORY_ONLY_SER
     - LIBRAIRY_COMPUTING_CLUSTER=local[10]
-    - LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
-    - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
+ #   - LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
+ #   - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
    volumes:
     - ./librairy-models:/librairy/domains
    mem_limit: 20608m
@@ -18,3 +18,12 @@ services:
    cpuset: 4-14
    ulimits:
     nofile: 100000
+   external_links:
+    - librairy-db
+    - librairy-bus
+   networks:
+    - lnet
+networks:
+ lnet:
+  external:
+   name: core_lnet
