@@ -52,7 +52,7 @@ services:
     networks:
      - lnet
  librairy-rhetoric4:
-    container_name: librairy-rhetoric1
+    container_name: librairy-rhetoric4
     image: librairy/annotator-rhetoric:1.8.0
     restart: always
     environment:
@@ -69,7 +69,7 @@ services:
     networks:
      - lnet
  librairy-rhetoric5:
-    container_name: librairy-rhetoric1
+    container_name: librairy-rhetoric5
     image: librairy/annotator-rhetoric:1.8.0
     restart: always
     environment:
