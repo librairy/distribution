@@ -1,0 +1,20 @@
+version: "2"
+services:
+ librairy-lda:
+   container_name: librairy-lda
+   image: librairy/modeler-lda:1.8.0
+   restart: always
+   environment:
+    - LIBRAIRY_URI=minetur.dia.fi.upm.es:9999/api
+    - JAVA_OPTS=-Xmx20g -Xms512m
+    - LIBRAIRY_COMPUTING_CACHE=MEMORY_ONLY_SER
+    - LIBRAIRY_COMPUTING_CLUSTER=local[10]
+    - LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
+    - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
+   volumes:
+    - ./librairy-models:/librairy/domains
+   mem_limit: 20608m
+   memswap_limit: 20608m
+   cpuset: 4-14
+   ulimits:
+    nofile: 100000

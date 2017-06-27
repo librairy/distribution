@@ -1,0 +1,14 @@
+version: "2"
+services:
+ librairy-elsevier:
+   container_name: librairy-elsevier
+   image: librairy/harvester-elsevier:1.8.0
+   #restart: always
+  # network_mode: host
+   environment:
+    - ELSEVIER_API_KEY=fe84b05d1887906a9e4d5fcf6496c614
+    - LIBRAIRY_HOST=minetur.dia.fi.upm.es:9999/api
+    - RHETORICAL_ANALYSIS=false
+    - JOURNAL_NAME=Journal of Web Semantics
+    - NUM_PAPERS=1500
+    - JAVA_OPTS=-Xmx1024m -Xms124m
