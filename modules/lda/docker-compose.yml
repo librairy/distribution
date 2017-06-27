@@ -1,0 +1,46 @@
+version: "2"
+services:
+ librairy-tokenizer:
+   container_name: librairy-tokenizer
+   image: librairy/annotator-tokenizer:1.8.0
+   restart: always
+   environment:
+    - LIBRAIRY_URI=minetur.dia.fi.upm.es:9999/api
+    #- LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
+    #- LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
+    - JAVA_OPTS=-Xmx60g -Xms512m
+   mem_limit: 61952m
+   memswap_limit: 61952m
+   cpuset: 4-34
+   external_links:
+    - librairy-db
+    - librairy-bus
+   networks:
+    - lnet
+ librairy-lda:
+   container_name: librairy-lda
+   image: librairy/modeler-lda:1.8.0
+   restart: always
+   environment:
+    - LIBRAIRY_URI=minetur.dia.fi.upm.es:9999/api
+    #- LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
+    #- LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
+    - JAVA_OPTS=-Xmx60g -Xms512m
+    - LIBRAIRY_COMPUTING_CACHE=MEMORY_ONLY_SER
+    - LIBRAIRY_COMPUTING_CLUSTER=local[30]
+   volumes:
+    - ./librairy-models:/librairy/domains
+   mem_limit: 61952m
+   memswap_limit: 61952m
+   cpuset: 4-34
+   ulimits:
+    nofile: 100000
+   external_links:
+    - librairy-db
+    - librairy-bus
+   networks:
+    - lnet
+networks:
+  lnet:
+   external:
+    name: core_lnet

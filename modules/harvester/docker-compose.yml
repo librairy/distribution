@@ -1,21 +1,32 @@
 version: "2"
 services:
  harvester-bluebottle:
-  container_name: harvester-bluebottle
-  image: librairy/harvester-bluebottle:0.1
-  env_file: ../librairy.env
-  mem_limit: 3g
-  #memswap_limit: 8g
-  cpuset: 8-9
+  container_name: bbb-harvester
+  image: librairy/harvester-bluebottle:1.0
+  environment:
+      - DOMAIN_CONF=BlueBottle
+      - LIBRAIRY_EXPLORER_DOMAIN_ID=blueBottle
+      - MIN_CHAPTER_LENGTH=2500
+      - LIBRAIRY_HARVESTER_ENDPOINT_CLIENT=http://api.staging.bluebottlebiz.com/
+      - LIBRAIRY_HARVESTER_ENDPOINT_CLIENT_APIKEY=e62f85c0-8ed2-11e6-96d5-b8aeed74afe3
+      - LIBRAIRY_HARVESTER_ENDPOINT_LIBRAIRY=http://librairy-api:8080/api/
+      - LIBRAIRY_HARVESTER_CORPUS_NAME=blueBottle
+      - LIBRAIRY_HARVESTER_CACHE_ENABLED=0
+      - LIBRAIRY_HARVESTER_LOAD_GT=0
+      - LIBRAIRY_HARVESTER_TOKENIZER_MODE=lemma+compound
+      - LIBRAIRY_HARVESTER_LDA_DELAY=660000
+      - LIBRAIRY_HARVESTER_W2V_DELAY=600000
+      - LIBRAIRY_HARVESTER_FORCE_PAGE=0
+      - LIBRAIRY_HARVESTER_PARALLEL_PROCESSING=0
+  mem_limit: 1g
+#  mem_swappiness: 0
+  memswap_limit: -1
+  cpuset: 10-11
   external_links:
-   - column-db
-   - document-db
-   - graph-db
-   - event-bus
    - librairy-api
   networks:
    - "lnet"
 networks:
   lnet:
    external:
-    name: storage_lnet
+    name: all_lnet
