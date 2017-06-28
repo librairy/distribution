@@ -3,15 +3,30 @@ services:
  librairy-elsevier:
    container_name: librairy-elsevier
    image: librairy/harvester-elsevier:1.8.0
-   #restart: always
-  # network_mode: host
    environment:
     - ELSEVIER_API_KEY=fe84b05d1887906a9e4d5fcf6496c614
-    #- LIBRAIRY_HOST=minetur.dia.fi.upm.es:9999
     - LIBRAIRY_HOST=librairy-api:8080
-    - RHETORICAL_ANALYSIS=false
+    - NUM_PAPERS=1000
+    # Physical Sciences and Engineering / Computer Science
     - JOURNAL_NAME=Journal of Web Semantics
-    - NUM_PAPERS=1500
+    # Social Sciences and Humanities / Psychology
+    #- JOURNAL_NAME=International Journal of Clinical and Health Psychology
+    # Social Sciences and Humanities / Economics
+    #- JOURNAL_NAME=Review of Development Finance
+    # Social Sciences and Humanities / Arts and Humanities /
+    #- JOURNAL_NAME=Journal of Archaeological Science: Reports
+    # Health Sciences / Pharmacology
+    #- JOURNAL_NAME=Journal of Pharmaceutical Analysis
+    # Life Sciences / Agricultural and Biological Sciences / Agricultural
+    #- JOURNAL_NAME=Information Processing in Agriculture
+    # Physical Sciences and Engineering / Mathematics
+    #- JOURNAL_NAME=Advances in Applied Mathematics
+    # Physical Sciences and Engineering / Computer Science
+    #- JOURNAL_NAME=Advances in Engineering Software
+    # Physical Sciences and Engineering / Physics and Astronomy
+    #- JOURNAL_NAME=Advances in Space Research
+    # Physical Sciences and Engineering / Chemistry
+    #- JOURNAL_NAME=Procedia Chemistry
     - JAVA_OPTS=-Xmx1024m -Xms124m
    external_links:
     - librairy-api
