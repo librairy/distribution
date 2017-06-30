@@ -5,7 +5,7 @@ services:
    image: librairy/modeler-lda:1.8.0
    restart: always
    environment:
-    - LIBRAIRY_URI=minetur.dia.fi.upm.es:9999/api
+    - LIBRAIRY_URI=librairy.linkeddata.es/resources
     - JAVA_OPTS=-Xmx20g -Xms512m
     - LIBRAIRY_COMPUTING_CACHE=MEMORY_ONLY_SER
     - LIBRAIRY_COMPUTING_CLUSTER=local[10]

@@ -84,7 +84,7 @@ services:
    image: librairy/api:1.8.0
    restart: always
    environment:
-    - LIBRAIRY_URI=minetur.dia.fi.upm.es:9999/api
+    - LIBRAIRY_URI=librairy.linkeddata.es/resources
     - JAVA_OPTS=-Xmx512m -Xms124m
    mem_limit: 560m
    memswap_limit: 560m
@@ -92,7 +92,7 @@ services:
    ulimits:
      nofile: 100000
    ports:
-    - "9999:8080"
+    - "8080:8080"
     - "9942:4040"
    depends_on:
     - librairy-db
