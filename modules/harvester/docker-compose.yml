@@ -24,10 +24,10 @@ services:
   memswap_limit: -1
   cpuset: 10-11
   external_links:
-   - librairy-api
+   - librairy
   networks:
    - "lnet"
 networks:
   lnet:
    external:
-    name: all_lnet
+    name: core_lnet
