@@ -79,12 +79,12 @@ services:
    cpuset: 0-1
    networks:
     - lnet
- librairy-api:
-   container_name: librairy-api
+ librairy:
+   container_name: librairy
    image: librairy/api:1.8.0
    restart: always
    environment:
-    - LIBRAIRY_URI=minetur.dia.fi.upm.es:9999/api
+    - LIBRAIRY_URI=librairy/api
     - JAVA_OPTS=-Xmx512m -Xms124m
    mem_limit: 560m
    memswap_limit: 560m
