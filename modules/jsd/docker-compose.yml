@@ -6,6 +6,7 @@ services:
    restart: always
    environment:
     - LIBRAIRY_URI=librairy.linkeddata.es/resources
+    - LIBRAIRY_JSD_SCORE_MIN=0.5
  #   - JAVA_OPTS=-Xmx30g -Xms512m
  #   - LIBRAIRY_COLUMNDB_HOST=minetur.dia.fi.upm.es
  #   - LIBRAIRY_EVENTBUS_HOST=minetur.dia.fi.upm.es
