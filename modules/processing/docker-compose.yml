@@ -46,6 +46,7 @@ services:
    restart: always
    environment:
     - LIBRAIRY_URI=librairy/api
+    - LIBRAIRY_JSD_SCORE_MIN=0.5
     - JAVA_OPTS=-Xmx8g -Xms512m
     #- LIBRAIRY_COLUMNDB_HOST=librairy-db
     #- LIBRAIRY_EVENTBUS_HOST=librairy-bus
