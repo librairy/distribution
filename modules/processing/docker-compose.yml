@@ -48,6 +48,9 @@ services:
     - LIBRAIRY_URI=librairy/api
     - LIBRAIRY_JSD_SCORE_MIN=0.5
     - JAVA_OPTS=-Xmx8g -Xms512m
+    - LIBRAIRY_COMPUTING_CACHE=MEMORY_ONLY_SER
+    - LIBRAIRY_COMPUTING_CLUSTER=local[30]
+    - LIBRAIRY_JSD_SCORE_MIN=0.7
     #- LIBRAIRY_COLUMNDB_HOST=librairy-db
     #- LIBRAIRY_EVENTBUS_HOST=librairy-bus
    mem_limit: 8320m
