@@ -1,9 +1,15 @@
-Core:
-	2x1.6Ghz
-	3.35GB RAM
-	100GB Disk
+node1:
+	4x1.6 Ghz
+	16 GB RAM
+	200 GB Disk
 
-Services:
+node2:
 	4x1.6Ghz
-	7.8 Ghz RAM
-	18.6 GB Disk
+	16 GB RAM
+	200 GB Disk
+
+nodex:
+	1x1.6Ghz
+	1 GB RAM
+	100 GB Disk
+	

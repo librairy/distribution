@@ -1,24 +1,27 @@
 version: '2'
 services:
   bus:
-    milli_cpu_reservation: 200
     scale: 1
     start_on_create: true
-    health_check:
-      healthy_threshold: 2
-      response_timeout: 2000
-      port: 5672
-      unhealthy_threshold: 3
-      initializing_timeout: 60000
-      interval: 2000
-      strategy: recreate
-      reinitializing_timeout: 60000
   linker:
-    milli_cpu_reservation: 500
+    scale: 1
+    start_on_create: true
+  db1:
+    scale: 1
+    start_on_create: true
+  db2:
+    scale: 1
+    start_on_create: true
+  api2:
+    scale: 1
+    start_on_create: true
+  tokenizer1:
+    scale: 1
+    start_on_create: true
+  tokenizer2:
     scale: 1
     start_on_create: true
   lda:
-    milli_cpu_reservation: 500
     scale: 1
     start_on_create: true
   api-lb:
@@ -29,12 +32,22 @@ services:
       port_rules:
       - priority: 1
         protocol: tcp
-        service: api
+        service: api1
         source_port: 8080
         target_port: 8080
-      - priority: 2
+      - priority: 3
         protocol: tcp
-        service: api
+        service: api1
+        source_port: 9942
+        target_port: 9942
+      - priority: 4
+        protocol: tcp
+        service: api2
+        source_port: 8080
+        target_port: 8080
+      - priority: 5
+        protocol: tcp
+        service: api2
         source_port: 9942
         target_port: 9942
     health_check:
@@ -45,19 +58,9 @@ services:
       initializing_timeout: 60000
       interval: 2000
       reinitializing_timeout: 60000
-  api:
-    milli_cpu_reservation: 200
-    scale: 2
+  api1:
+    scale: 1
     start_on_create: true
   harvester-bb:
-    milli_cpu_reservation: 100
-    scale: 1
-    start_on_create: true
-  db:
-    milli_cpu_reservation: 1000
-    scale: 1
-    start_on_create: true
-  tokenizer:
-    milli_cpu_reservation: 900
     scale: 1
     start_on_create: true

@@ -8,52 +8,159 @@ services:
       RABBITMQ_DEFAULT_VHOST: librairy
       RABBITMQ_DEFAULT_PASS: l1brA1ry
     stdin_open: true
-    tty: true
     memswap_limit: 1073741824
     labels:
-      io.rancher.scheduler.affinity:host_label: environment=core
-      environment: core
+      io.rancher.scheduler.affinity:host_label: environment=node1
+      environment: node1
       io.rancher.container.pull_image: always
   linker:
-    mem_limit: 2181038080
-    image: librairy/linker-jsd:1.8.3.3
+    mem_limit: 3288334336
+    image: librairy/linker-jsd:1.8.6
     environment:
       LIBRAIRY_URI: zavijava.librairy.linkeddata.es/resources
-      JAVA_OPTS: -Xmx2048m -Xms64m
+      JAVA_OPTS: -Xmx3072m -Xms64m
       LIBRAIRY_COMPUTING_CACHE: MEMORY_AND_DISK
-      LIBRAIRY_COMPUTING_CLUSTER: local[2]
+      LIBRAIRY_COMPUTING_CLUSTER: local[3]
       LIBRAIRY_JSD_SCORE_MIN: '0.9'
-      LIBRAIRY_JSD_SIZE_MAX: '1000'
+      LIBRAIRY_JSD_SIZE_MAX: '500'
       LIBRAIRY_JSD_SIZE_MIN: '5'
+      LIBRAIRY_COLUMNDB_HOST: librairy-db2,librairy-db1
     stdin_open: true
-    cpuset: 0-1
     links:
+    - db2:librairy-db2
     - bus:librairy-bus
-    - db:librairy-db
-    memswap_limit: 4362076160
+    - db1:librairy-db1
+    memswap_limit: 6576668672
     labels:
-      io.rancher.scheduler.affinity:host_label: environment=services
-      environment: services
+      io.rancher.scheduler.affinity:host_label: environment=node2
+      environment: node2
+      io.rancher.container.pull_image: always
+  db1:
+    mem_limit: 2365587456
+    image: cassandra:3.10
+    hostname: librairy-db1
+    environment:
+      JAVA_OPTS: -XX:+AlwaysPreTouch
+      MAX_HEAP_SIZE: 1024M
+      HEAP_NEWSIZE: 256M
+      CASSANDRA_CLUSTER_NAME: librairy_cluster
+      CASSANDRA_SEEDS: librairy-db1
+    stdin_open: true
+    volumes:
+    - /mnt/librairy/data/n1:/var/lib/cassandra
+    cpuset: 2-3
+    memswap_limit: 4731174912
+    command:
+    - bash
+    - -c
+    - if [ -z "$$$$(ls -A /var/lib/cassandra/)" ] ; then sleep 0; fi && /docker-entrypoint.sh cassandra -f
+    labels:
+      io.rancher.scheduler.affinity:host_label: environment=node1
+      environment: node1
+      io.rancher.container.pull_image: always
+  db2:
+    image: cassandra:3.10
+    stdin_open: true
+    volumes:
+    - /mnt/librairy/data/n2:/var/lib/cassandra
+    cpuset: 2-3
+    command:
+    - bash
+    - -c
+    - if [ -z "$$$$(ls -A /var/lib/cassandra/)" ] ; then sleep 60; fi && /docker-entrypoint.sh cassandra -f
+    labels:
+      io.rancher.scheduler.affinity:host_label: environment=node2
+      environment: node2
+      io.rancher.container.pull_image: always
+    mem_limit: 2365587456
+    hostname: librairy-db2
+    environment:
+      JAVA_OPTS: -XX:+AlwaysPreTouch
+      MAX_HEAP_SIZE: 1024M
+      HEAP_NEWSIZE: 256M
+      CASSANDRA_CLUSTER_NAME: librairy_cluster
+      CASSANDRA_SEEDS: librairy-db1
+    links:
+    - db1:librairy-db1
+    memswap_limit: 4731174912
+  api2:
+    mem_limit: 562036736
+    image: librairy/api:1.8.8
+    environment:
+      LIBRAIRY_URI: zavijava.librairy.linkeddata.es/resources
+      JAVA_OPTS: -Xmx512m -Xms32m
+      LIBRAIRY_API_USERS: bb:8d594825
+      LIBRAIRY_COLUMNDB_HOST: librairy-db2,librairy-db1
+    stdin_open: true
+    cpuset: '3'
+    links:
+    - db2:librairy-db2
+    - bus:librairy-bus
+    - db1:librairy-db1
+    memswap_limit: 1124073472
+    labels:
+      io.rancher.scheduler.affinity:host_label: environment=node2
+      environment: node2
+      io.rancher.container.pull_image: always
+  tokenizer1:
+    mem_limit: 4362076160
+    image: librairy/annotator-tokenizer:1.8.5.2
+    environment:
+      LIBRAIRY_URI: zavijava.librairy.linkeddata.es/resources
+      JAVA_OPTS: -Xmx4096m -Xms32m
+      LIBRAIRY_COLUMNDB_HOST: librairy-db1,librairy-db2
+      LIBRAIRY_TOKENIZER_MAX_PARALLEL: '3'
+    stdin_open: true
+    cpuset: 0-2
+    links:
+    - db2:librairy-db2
+    - bus:librairy-bus
+    - db1:librairy-db1
+    memswap_limit: 8724152320
+    labels:
+      io.rancher.scheduler.affinity:host_label: environment=node1
+      environment: node1
+      io.rancher.container.pull_image: always
+  tokenizer2:
+    mem_limit: 4362076160
+    image: librairy/annotator-tokenizer:1.8.5.2
+    environment:
+      LIBRAIRY_URI: zavijava.librairy.linkeddata.es/resources
+      JAVA_OPTS: -Xmx4096m -Xms32m
+      LIBRAIRY_COLUMNDB_HOST: librairy-db2,librairy-db1
+      LIBRAIRY_TOKENIZER_MAX_PARALLEL: '3'
+    stdin_open: true
+    cpuset: 0-2
+    links:
+    - db2:librairy-db2
+    - bus:librairy-bus
+    - db1:librairy-db1
+    memswap_limit: 8724152320
+    labels:
+      io.rancher.scheduler.affinity:host_label: environment=node2
+      environment: node2
       io.rancher.container.pull_image: always
   lda:
-    mem_limit: 2181038080
-    image: librairy/modeler-lda:1.8.1.3
+    mem_limit: 3288334336
+    image: librairy/modeler-lda:1.8.3.4
     environment:
       LIBRAIRY_URI: zavijava.librairy.linkeddata.es/resources
-      JAVA_OPTS: -Xmx2048m -Xms64m
+      JAVA_OPTS: -Xmx3072m -Xms64m
       LIBRAIRY_COMPUTING_CACHE: MEMORY_AND_DISK
-      LIBRAIRY_COMPUTING_CLUSTER: local[2]
+      LIBRAIRY_COMPUTING_CLUSTER: local[4]
+      LIBRAIRY_COLUMNDB_HOST: librairy-db1,librairy-db2
+      LIBRAIRY_LDA_MAX_PENDING_SHAPES: '1000'
     stdin_open: true
     volumes:
     - /mnt/librairy/models:/librairy/domains
-    cpuset: 0-1
     links:
     - bus:librairy-bus
-    - db:librairy-db
-    memswap_limit: 4362076160
+    - db2:librairy-db2
+    - db1:librairy-db1
+    memswap_limit: 6576668672
     labels:
-      io.rancher.scheduler.affinity:host_label: environment=services
-      environment: services
+      io.rancher.scheduler.affinity:host_label: environment=node1
+      environment: node1
       io.rancher.container.pull_image: always
   api-lb:
     image: rancher/lb-service-haproxy:v0.7.5
@@ -61,28 +168,31 @@ services:
     - 8080:8080/tcp
     - 9942:9942/tcp
     labels:
-      io.rancher.scheduler.affinity:host_label: environment=core
+      io.rancher.scheduler.affinity:host_label: environment=node1
       io.rancher.container.agent.role: environmentAdmin
-      environment: core
+      environment: node1
       io.rancher.container.create_agent: 'true'
-  api:
-    mem_limit: 549453824
-    image: librairy/api:1.8.4.2
+  api1:
+    mem_limit: 562036736
+    image: librairy/api:1.8.8
     environment:
       LIBRAIRY_URI: zavijava.librairy.linkeddata.es/resources
-      JAVA_OPTS: -Xmx512m -Xms64m
+      JAVA_OPTS: -Xmx512m -Xms32m
       LIBRAIRY_API_USERS: bb:8d594825
+      LIBRAIRY_COLUMNDB_HOST: librairy-db1,librairy-db2
     stdin_open: true
+    cpuset: '3'
     links:
     - bus:librairy-bus
-    - db:librairy-db
-    memswap_limit: 1098907648
+    - db2:librairy-db2
+    - db1:librairy-db1
+    memswap_limit: 1124073472
     labels:
-      io.rancher.scheduler.affinity:host_label: environment=core
-      environment: core
+      io.rancher.scheduler.affinity:host_label: environment=node1
+      environment: node1
       io.rancher.container.pull_image: always
   harvester-bb:
-    mem_limit: 603979776
+    mem_limit: 562036736
     image: librairy/harvester-bluebottle:1.3.1
     environment:
       DOMAIN_CONF: BlueBottle
@@ -104,48 +214,11 @@ services:
     stdin_open: true
     volumes:
     - /mnt/librairy/harvester:/cache
-    cpuset: '0'
     links:
     - api-lb:librairy-api
-    memswap_limit: 1207959552
+    memswap_limit: 1124073472
     labels:
-      io.rancher.scheduler.affinity:host_label: environment=services
+      io.rancher.scheduler.affinity:host_label: environment=nodex
       io.rancher.container.start_once: 'true'
-      environment: services
-      io.rancher.container.pull_image: always
-  db:
-    mem_limit: 2365587456
-    image: cassandra:3.10
-    environment:
-      JAVA_OPTS: -XX:+AlwaysPreTouch
-      MAX_HEAP_SIZE: 1024M
-      HEAP_NEWSIZE: 256M
-      CASSANDRA_CLUSTER_NAME: librairy_cluster
-    stdin_open: true
-    volumes:
-    - /mnt/librairy/database:/var/lib/cassandra
-    memswap_limit: 4731174912
-    command:
-    - bash
-    - -c
-    - if [ -z "$$$$(ls -A /var/lib/cassandra/)" ] ; then sleep 0; fi && /docker-entrypoint.sh cassandra -f
-    labels:
-      io.rancher.scheduler.affinity:host_label: environment=core
-      environment: core
-      io.rancher.container.pull_image: always
-  tokenizer:
-    mem_limit: 2181038080
-    image: librairy/annotator-tokenizer:1.8.3.2
-    environment:
-      LIBRAIRY_URI: zavijava.librairy.linkeddata.es/resources
-      JAVA_OPTS: -Xmx2048m -Xms32m
-    stdin_open: true
-    cpuset: 0-1
-    links:
-    - bus:librairy-bus
-    - db:librairy-db
-    memswap_limit: 4362076160
-    labels:
-      io.rancher.scheduler.affinity:host_label: environment=services
-      environment: services
+      environment: nodex
       io.rancher.container.pull_image: always
